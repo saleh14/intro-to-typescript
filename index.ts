@@ -1,15 +1,14 @@
-import { base64encoder } from "./base64encode";
-import { urlencoder } from "./urlencoder";
 import * as minimist from 'minimist';
+import { DEFAULT_ENCODER } from './encoders';
+import { Options, ProcessArgs } from './options';
 
-const input = "Hello World";
-const base64Output = "SGVsbG8gV29ybGQ=";
-const urlOutput = "Hello%20World";
+var args = <ProcessArgs & minimist.ParsedArgs>minimist(process.argv.slice(2), {
+    alias: { encoding: 'e' },
+    default: { encoding: DEFAULT_ENCODER }
+});
 
-console.log('input: ', input);
+var input = args._.join(' ');
+var options = new Options(input, args);
 
-console.log('base64 output: ', base64encoder.encode(input));
-console.log('base64 expected: ', base64Output);
+console.log(options);
 
-console.log('url output: ', urlencoder.encode(input));
-console.log('url expected: ', urlOutput);
