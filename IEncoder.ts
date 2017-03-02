@@ -1,3 +1,4 @@
 export interface IEncoder {
-    (input: string): string;
+   encode (input: string): string;
+   decode (input: string): string;
 }
