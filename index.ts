@@ -1,14 +1,9 @@
-import * as minimist from 'minimist';
-import { DEFAULT_ENCODER } from './encoders';
-import { Options, ProcessArgs } from './options';
+import { fromArg } from './OptionParser';
 
-var args = <ProcessArgs & minimist.ParsedArgs>minimist(process.argv.slice(2), {
-    alias: { encoding: 'e' },
-    default: { encoding: DEFAULT_ENCODER }
-});
+var opt = fromArg(process.argv.slice(2));
 
-var input = args._.join(' ');
-var options = new Options(input, args);
 
-console.log(options);
+console.log('INPUT: ', opt.input);
+console.log('ENCODING: ', opt.encoding);
+console.log('RESULT: ', opt.decode ? opt.encoder.decode(opt.input) : opt.encoder.encode(opt.input));
 
